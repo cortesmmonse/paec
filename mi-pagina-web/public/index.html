@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Reciclaje</title>
+</head>
+<body>
+
+<h1>Gestión del Reciclaje</h1>
+
+<!-- Sección A.1: Registrar bote de basura -->
+<section>
+  <h2>Registrar Bote de Basura</h2>
+  <form id="form-bote">
+    <input type="text" name="ubicacion" placeholder="Ubicación del bote" required><br>
+    <select name="tipo">
+      <option value="plastico">Plástico</option>
+      <option value="papel">Papel</option>
+      <option value="vidrio">Vidrio</option>
+      <option value="organico">Orgánico</option>
+    </select><br>
+    <button type="submit">Registrar Bote</button>
+  </form>
+</section>
+
+<!-- Sección A.2: Materiales reciclables -->
+<section>
+  <h2>Registrar Material Reciclable</h2>
+  <form id="form-material">
+    <input type="text" name="material" placeholder="Nombre del material" required><br>
+    <select name="tipo">
+      <option value="plastico">Plástico</option>
+      <option value="papel">Papel</option>
+      <option value="vidrio">Vidrio</option>
+      <option value="organico">Orgánico</option>
+    </select><br>
+    <button type="submit">Registrar Material</button>
+  </form>
+</section>
+
+<!-- Sección B: Participación comunitaria -->
+<section>
+  <h2>Registrar Participante</h2>
+  <form id="form-participante">
+    <input type="text" name="nombre" placeholder="Nombre completo" required><br>
+    <select name="rol">
+      <option value="estudiante">Estudiante</option>
+      <option value="docente">Docente</option>
+      <option value="administrativo">Administrativo</option>
+    </select><br>
+    <input type="number" name="kilos" placeholder="Kilos reciclados" required><br>
+    <input type="text" name="fecha" placeholder="Fecha (AAAA-MM-DD)" pattern="\d{4}-\d{2}-\d{2}" required><br>
+    <input type="text" name="lugar" placeholder="Lugar de recolección"><br>
+    <button type="submit">Registrar Participación</button>
+  </form>
+</section>
+
+<!-- Sección C: Rutas de recolección -->
+<section>
+  <h2>Registrar Ruta de Recolección</h2>
+  <form id="form-ruta">
+    <input type="text" name="zona" placeholder="Zona o sector" required><br>
+   <input type="text" name="hora" placeholder="Hora (HH:MM)" pattern="^([01]\d|2[0-3]):([0-5]\d)$" required><br>
+    <input type="text" name="descripcion" placeholder="Descripción o puntos de recolección"><br>
+    <button type="submit">Registrar Ruta</button>
+  </form>
+</section>
+
+<script>
+async function enviarFormulario(formId, url) {
+  document.getElementById(formId).addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = Object.fromEntries(new FormData(form));
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    const data = await res.json();
+    alert('Registro exitoso');
+    form.reset();
+  });
+}
+
+// Asignar eventos a formularios
+enviarFormulario('form-bote', '/api/botes');
+enviarFormulario('form-material', '/api/materiales');
+enviarFormulario('form-participante', '/api/participantes');
+enviarFormulario('form-ruta', '/api/rutas');
+</script>
+
+</body>
+</html>
