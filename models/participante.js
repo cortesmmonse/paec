@@ -1,18 +1,12 @@
-app.post('/api/participantes', async (req, res) => {
-  try {
-    const participante = new Participante(req.body);
-    await participante.save();
-    res.json(participante);
-  } catch (err) {
-    res.status(400).json({ error: 'Error al guardar el participante' });
-  }
-});
+const mongoose = require('mongoose');
 
-app.get('/api/participantes', async (req, res) => {
-  try {
-    const participantes = await Participante.find();
-    res.json(participantes);
-  } catch (err) {
-    res.status(500).json({ error: 'Error al obtener los participantes' });
-  }
-});
+const participanteSchema = new mongoose.Schema({
+  tipo: { type: String, default: 'participante' }, // No es necesario, pero si lo usas para identificar tipo, lo dejamos
+  nombre: String,
+  rol: String,           // estudiante, docente, administrativo
+  kilos: Number,
+  fecha: String,         // AAAA-MM-DD
+  lugar: String
+}, { collection: 'PAEC' });
+
+module.exports = mongoose.model('Participante', participanteSchema);
