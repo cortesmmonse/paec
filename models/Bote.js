@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-
-const boteSchema = new mongoose.Schema({
-  tipo: { type: String, default: 'bote' },
-  ubicacion: String,
-  reciclaje: String
-}, { collection: 'PAEC' });
-
-module.exports = mongoose.model('Bote', boteSchema);
+// Obtener todos los botes
+app.get('/api/botes', async (req, res) => {
+  try {
+    const botes = await Bote.find();
+    res.json(botes);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener los botes' });
+  }
+});
