@@ -1,10 +1,9 @@
-// models/Material.js
-const mongoose = require('mongoose');
-
-const materialSchema = new mongoose.Schema({
-  tipo: { type: String, default: 'material' },
-  material: String,
-  reciclaje: String
-}, { collection: 'PAEC' });
-
-module.exports = mongoose.model('Material', materialSchema);
+// Obtener todos los materiales
+app.get('/api/materiales', async (req, res) => {
+  try {
+    const materiales = await Material.find();
+    res.json(materiales);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener materiales' });
+  }
+});
