@@ -19,6 +19,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML desde /public
 
+
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente');
+});
+
+
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
