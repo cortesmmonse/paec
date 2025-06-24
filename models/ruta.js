@@ -16,3 +16,11 @@ app.get('/api/rutas', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener las rutas' });
   }
 });
+app.get('/api/todos', async (req, res) => {
+  try {
+    const todos = await mongoose.connection.db.collection('PAEC').find().toArray();
+    res.json(todos);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener todos los datos' });
+  }
+});
