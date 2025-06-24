@@ -1,4 +1,3 @@
-// models/Participante.js
 const mongoose = require('mongoose');
 
 const participanteSchema = new mongoose.Schema({
