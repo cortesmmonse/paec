@@ -6,88 +6,91 @@
 </head>
 <body>
 
-<h1>Gestión del Reciclaje</h1>
+<h1>Gestión de Reciclaje - Participaciones</h1>
 
-<!-- Sección A.1: Registrar bote de basura -->
-<section>
-  <h2>Registrar Bote de Basura</h2>
-  <form id="form-bote">
-    <input type="text" name="ubicacion" placeholder="Ubicación del bote" required><br>
-    <select name="tipo">
-      <option value="plastico">Plástico</option>
-      <option value="papel">Papel</option>
-      <option value="vidrio">Vidrio</option>
-      <option value="organico">Orgánico</option>
-    </select><br>
-    <button type="submit">Registrar Bote</button>
-  </form>
-</section>
+<!-- Formulario de participación con material -->
+<form id="form-participacion">
+  <input type="text" name="nombre" placeholder="Nombre completo" required><br>
 
-<!-- Sección A.2: Materiales reciclables -->
-<section>
-  <h2>Registrar Material Reciclable</h2>
-  <form id="form-material">
-    <input type="text" name="material" placeholder="Nombre del material" required><br>
-    <select name="tipo">
-      <option value="plastico">Plástico</option>
-      <option value="papel">Papel</option>
-      <option value="vidrio">Vidrio</option>
-      <option value="organico">Orgánico</option>
-    </select><br>
-    <button type="submit">Registrar Material</button>
-  </form>
-</section>
+  <select name="rol" required>
+    <option value="">Selecciona rol</option>
+    <option value="estudiante">Estudiante</option>
+    <option value="docente">Docente</option>
+    <option value="administrativo">Administrativo</option>
+    <option value="directivo">Directivo</option>
+  </select><br>
 
-<!-- Sección B: Participación comunitaria -->
-<section>
-  <h2>Registrar Participante</h2>
-  <form id="form-participante">
-    <input type="text" name="nombre" placeholder="Nombre completo" required><br>
-    <select name="rol">
-      <option value="estudiante">Estudiante</option>
-      <option value="docente">Docente</option>
-      <option value="administrativo">Administrativo</option>
-    </select><br>
-    <input type="number" name="kilos" placeholder="Kilos reciclados" required><br>
-    <input type="text" name="fecha" placeholder="Fecha (AAAA-MM-DD)" pattern="\d{4}-\d{2}-\d{2}" required><br>
-    <input type="text" name="lugar" placeholder="Lugar de recolección"><br>
-    <button type="submit">Registrar Participación</button>
-  </form>
-</section>
+  <select name="material" required>
+    <option value="">Tipo de material reciclado</option>
+    <option value="Plástico">Plástico</option>
+    <option value="Papel">Papel</option>
+    <option value="Vidrio">Vidrio</option>
+    <option value="Orgánico">Orgánico</option>
+  </select><br>
 
-<!-- Sección C: Rutas de recolección -->
-<section>
-  <h2>Registrar Ruta de Recolección</h2>
-  <form id="form-ruta">
-    <input type="text" name="zona" placeholder="Zona o sector" required><br>
-   <input type="text" name="hora" placeholder="Hora (HH:MM)" pattern="^([01]\d|2[0-3]):([0-5]\d)$" required><br>
-    <input type="text" name="descripcion" placeholder="Descripción o puntos de recolección"><br>
-    <button type="submit">Registrar Ruta</button>
-  </form>
-</section>
+  <input type="number" name="kilos" placeholder="Kilos reciclados" required><br>
+  <input type="date" name="fecha" required><br>
+  <input type="text" name="hora" placeholder="Hora (HH:MM)" pattern="^([01]\d|2[0-3]):([0-5]\d)$"><br>
+  <input type="text" name="lugar" placeholder="Lugar de recolección"><br>
+
+  <button type="submit">Registrar Participación</button>
+</form>
+
+<h3>Filtrar por Rol:</h3>
+<select id="filtro-rol">
+  <option value="">Todos</option>
+  <option value="estudiante">Estudiante</option>
+  <option value="docente">Docente</option>
+  <option value="administrativo">Administrativo</option>
+  <option value="directivo">Directivo</option>
+</select>
+
+<!-- Tabla única con toda la información -->
+<table border="1" style="margin-top: 20px;">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Rol</th>
+      <th>Material</th>
+      <th>Kilos</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Lugar</th>
+    </tr>
+  </thead>
+  <tbody id="tabla-datos"></tbody>
+</table>
 
 <script>
-async function enviarFormulario(formId, url) {
-  document.getElementById(formId).addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = Object.fromEntries(new FormData(form));
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-    const data = await res.json();
-    alert('Registro exitoso');
-    form.reset();
-  });
-}
+  const participaciones = [];
 
-// Asignar eventos a formularios
-enviarFormulario('form-bote', '/api/botes');
-enviarFormulario('form-material', '/api/materiales');
-enviarFormulario('form-participante', '/api/participantes');
-enviarFormulario('form-ruta', '/api/rutas');
+  document.getElementById('form-participacion').addEventListener('submit', e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    participaciones.push(data);
+    mostrarTabla();
+    e.target.reset();
+  });
+
+  document.getElementById('filtro-rol').addEventListener('change', mostrarTabla);
+
+  function mostrarTabla() {
+    const filtro = document.getElementById('filtro-rol').value;
+    const tabla = document.getElementById('tabla-datos');
+    const datosFiltrados = filtro ? participaciones.filter(p => p.rol === filtro) : participaciones;
+
+    tabla.innerHTML = datosFiltrados.map(p => `
+      <tr>
+        <td>${p.nombre}</td>
+        <td>${p.rol}</td>
+        <td>${p.material}</td>
+        <td>${p.kilos}</td>
+        <td>${p.fecha}</td>
+        <td>${p.hora || '-'}</td>
+        <td>${p.lugar || '-'}</td>
+      </tr>
+    `).join('');
+  }
 </script>
 
 </body>
