@@ -3,148 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Reciclaje</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    section { margin-bottom: 40px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f0f0f0; }
+  </style>
 </head>
 <body>
 
-  <h1>Gestión del Reciclaje</h1>
+<h1>Gestión del Reciclaje</h1>
 
-  <!-- Sección: Registrar Bote -->
-  <section>
-    <h2>Registrar Bote de Basura</h2>
-    <form id="form-bote">
-      <input type="text" name="ubicacion" placeholder="Ubicación del bote" required><br>
-      <select name="reciclaje">
-        <option value="plastico">Plástico</option>
-        <option value="papel">Papel</option>
-        <option value="vidrio">Vidrio</option>
-        <option value="organico">Orgánico</option>
-      </select><br>
-      <button type="submit">Registrar Bote</button>
-    </form>
-  </section>
+<!-- Registrar Bote -->
+<section>
+  <h2>Registrar Bote de Basura</h2>
+  <form id="form-bote">
+    <input type="text" name="ubicacion" placeholder="Ubicación del bote" required><br>
+    <select name="tipo">
+      <option value="plastico">Plástico</option>
+      <option value="papel">Papel</option>
+      <option value="vidrio">Vidrio</option>
+      <option value="organico">Orgánico</option>
+    </select><br>
+    <button type="submit">Registrar Bote</button>
+  </form>
+  <table id="tabla-botes">
+    <thead>
+      <tr><th>Ubicación</th><th>Tipo</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-  <!-- Sección: Registrar Material -->
-  <section>
-    <h2>Registrar Material Reciclable</h2>
-    <form id="form-material">
-      <input type="text" name="material" placeholder="Nombre del material" required><br>
-      <select name="reciclaje">
-        <option value="plastico">Plástico</option>
-        <option value="papel">Papel</option>
-        <option value="vidrio">Vidrio</option>
-        <option value="organico">Orgánico</option>
-      </select><br>
-      <button type="submit">Registrar Material</button>
-    </form>
-  </section>
+<!-- Registrar Material -->
+<section>
+  <h2>Registrar Material Reciclable</h2>
+  <form id="form-material">
+    <input type="text" name="material" placeholder="Nombre del material" required><br>
+    <select name="tipo">
+      <option value="plastico">Plástico</option>
+      <option value="papel">Papel</option>
+      <option value="vidrio">Vidrio</option>
+      <option value="organico">Orgánico</option>
+    </select><br>
+    <button type="submit">Registrar Material</button>
+  </form>
+  <table id="tabla-materiales">
+    <thead>
+      <tr><th>Material</th><th>Tipo</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-  <!-- Sección: Registrar Participante -->
-  <section>
-    <h2>Registrar Participante</h2>
-    <form id="form-participante">
-      <input type="text" name="nombre" placeholder="Nombre completo" required><br>
-      <select name="rol">
-        <option value="estudiante">Estudiante</option>
-        <option value="docente">Docente</option>
-        <option value="administrativo">Administrativo</option>
-      </select><br>
-      <input type="number" name="kilos" placeholder="Kilos reciclados" required><br>
-      <input type="text" name="fecha" placeholder="Fecha (AAAA-MM-DD)" pattern="\d{4}-\d{2}-\d{2}" required><br>
-      <input type="text" name="lugar" placeholder="Lugar de recolección"><br>
-      <button type="submit">Registrar Participación</button>
-    </form>
-  </section>
+<!-- Registrar Participante -->
+<section>
+  <h2>Registrar Participante</h2>
+  <form id="form-participante">
+    <input type="text" name="nombre" placeholder="Nombre completo" required><br>
+    <select name="rol">
+      <option value="estudiante">Estudiante</option>
+      <option value="docente">Docente</option>
+      <option value="administrativo">Administrativo</option>
+    </select><br>
+    <input type="number" name="kilos" placeholder="Kilos reciclados" required><br>
+    <input type="text" name="fecha" placeholder="Fecha (AAAA-MM-DD)" pattern="\d{4}-\d{2}-\d{2}" required><br>
+    <input type="text" name="lugar" placeholder="Lugar de recolección"><br>
+    <button type="submit">Registrar Participación</button>
+  </form>
+  <table id="tabla-participantes">
+    <thead>
+      <tr><th>Nombre</th><th>Rol</th><th>Kilos</th><th>Fecha</th><th>Lugar</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-  <!-- Sección: Registrar Ruta -->
-  <section>
-    <h2>Registrar Ruta de Recolección</h2>
-    <form id="form-ruta">
-      <input type="text" name="zona" placeholder="Zona o sector" required><br>
-      <input type="text" name="hora" placeholder="Hora (HH:MM)" pattern="^([01]\d|2[0-3]):([0-5]\d)$" required><br>
-      <input type="text" name="descripcion" placeholder="Descripción o puntos de recolección"><br>
-      <button type="submit">Registrar Ruta</button>
-    </form>
-  </section>
+<!-- Registrar Ruta -->
+<section>
+  <h2>Registrar Ruta de Recolección</h2>
+  <form id="form-ruta">
+    <input type="text" name="zona" placeholder="Zona o sector" required><br>
+    <input type="text" name="hora" placeholder="Hora (HH:MM)" pattern="^([01]\d|2[0-3]):([0-5]\d)$" required><br>
+    <input type="text" name="descripcion" placeholder="Descripción o puntos de recolección"><br>
+    <button type="submit">Registrar Ruta</button>
+  </form>
+  <table id="tabla-rutas">
+    <thead>
+      <tr><th>Zona</th><th>Hora</th><th>Descripción</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-  <!-- Sección: Visualización de todos los datos -->
-  <section>
-    <h2>Visualizar Todos los Registros</h2>
-    <button onclick="mostrarTodos()">Ver Todo</button>
-    <div id="tabla-todos"></div>
-  </section>
-
-  <script>
-    // Reutilizar para todos los formularios
-    async function enviarFormulario(formId, url, tipo) {
-      document.getElementById(formId).addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const formData = Object.fromEntries(new FormData(form));
-        formData.tipo = tipo; // Añadir campo tipo según modelo
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        if (res.ok) {
-          alert('Registro exitoso');
-          form.reset();
-        } else {
-          alert('Error al registrar');
-        }
-      });
+<script>
+async function enviarFormulario(formId, url, recargarTabla) {
+  document.getElementById(formId).addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = Object.fromEntries(new FormData(form));
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    if (res.ok) {
+      alert('Registro exitoso');
+      form.reset();
+      recargarTabla(); // recarga datos actualizados
+    } else {
+      alert('Error al registrar');
     }
+  });
+}
 
-    // Conectar formularios
-    enviarFormulario('form-bote', '/api/botes', 'bote');
-    enviarFormulario('form-material', '/api/materiales', 'material');
-    enviarFormulario('form-participante', '/api/participantes', 'participante');
-    enviarFormulario('form-ruta', '/api/rutas', 'ruta');
+// Funciones para cargar datos en tablas
+async function cargarMateriales() {
+  const res = await fetch('/materiales');
+  const data = await res.json();
+  const tbody = document.querySelector('#tabla-materiales tbody');
+  tbody.innerHTML = '';
+  data.forEach(item => {
+    tbody.innerHTML += `<tr><td>${item.material}</td><td>${item.tipo}</td></tr>`;
+  });
+}
 
-    // Mostrar todos los datos en una tabla unificada
-    async function mostrarTodos() {
-      const contenedor = document.getElementById('tabla-todos');
-      contenedor.innerHTML = '';
+async function cargarBotes() {
+  const res = await fetch('/botes');
+  const data = await res.json();
+  const tbody = document.querySelector('#tabla-botes tbody');
+  tbody.innerHTML = '';
+  data.forEach(item => {
+    tbody.innerHTML += `<tr><td>${item.ubicacion}</td><td>${item.tipo}</td></tr>`;
+  });
+}
 
-      try {
-        const res = await fetch('/api/todos');
-        const datos = await res.json();
+async function cargarParticipantes() {
+  const res = await fetch('/participantes');
+  const data = await res.json();
+  const tbody = document.querySelector('#tabla-participantes tbody');
+  tbody.innerHTML = '';
+  data.forEach(p => {
+    tbody.innerHTML += `<tr><td>${p.nombre}</td><td>${p.rol}</td><td>${p.kilos}</td><td>${p.fecha}</td><td>${p.lugar}</td></tr>`;
+  });
+}
 
-        if (datos.length === 0) {
-          contenedor.textContent = 'No hay registros aún.';
-          return;
-        }
+async function cargarRutas() {
+  const res = await fetch('/rutas');
+  const data = await res.json();
+  const tbody = document.querySelector('#tabla-rutas tbody');
+  tbody.innerHTML = '';
+  data.forEach(r => {
+    tbody.innerHTML += `<tr><td>${r.zona}</td><td>${r.hora}</td><td>${r.descripcion}</td></tr>`;
+  });
+}
 
-        const tabla = document.createElement('table');
-        tabla.border = '1';
-        tabla.style.marginTop = '20px';
+// Asignar eventos a formularios
+enviarFormulario('form-material', '/materiales', cargarMateriales);
+enviarFormulario('form-bote', '/botes', cargarBotes);
+enviarFormulario('form-participante', '/participantes', cargarParticipantes);
+enviarFormulario('form-ruta', '/rutas', cargarRutas);
 
-        // Encabezado dinámico
-        const encabezado = tabla.insertRow();
-        const columnas = Object.keys(datos[0]).filter(k => k !== '__v' && k !== '_id');
-        columnas.forEach(clave => {
-          const th = document.createElement('th');
-          th.textContent = clave.toUpperCase();
-          encabezado.appendChild(th);
-        });
-
-        // Filas de datos
-        datos.forEach(item => {
-          const fila = tabla.insertRow();
-          columnas.forEach(clave => {
-            const celda = fila.insertCell();
-            celda.textContent = item[clave] || '';
-          });
-        });
-
-        contenedor.appendChild(tabla);
-
-      } catch (err) {
-        console.error('Error al cargar todos los datos', err);
-        contenedor.textContent = 'Error al cargar datos.';
-      }
-    }
-  </script>
+// Cargar datos iniciales al abrir la página
+cargarMateriales();
+cargarBotes();
+cargarParticipantes();
+cargarRutas();
+</script>
 
 </body>
 </html>
