@@ -1,9 +1,18 @@
-const mongoose = require('mongoose');
+app.post('/api/botes', async (req, res) => {
+  try {
+    const bote = new Bote(req.body);
+    await bote.save();
+    res.json(bote);
+  } catch (err) {
+    res.status(400).json({ error: 'Error al guardar el bote' });
+  }
+});
 
-const boteSchema = new mongoose.Schema({
-  tipo: { type: String, default: 'bote' },
-  ubicacion: String,
-  reciclaje: String // opcional si no se usa
-}, { collection: 'PAEC' });
-
-module.exports = mongoose.model('Bote', boteSchema);
+app.get('/api/botes', async (req, res) => {
+  try {
+    const botes = await Bote.find();
+    res.json(botes);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener los botes' });
+  }
+});
