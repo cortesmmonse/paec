@@ -27,12 +27,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('✅ Conectado a MongoDB'))
 .catch(err => console.error('❌ Error al conectar:', err));
 
-// ==========================
-//         RUTAS
-// ==========================
 
-// Crear: Bote
-app.post('/api/botes', async (req, res) => {
+// ======= RUTAS SIN /api ======= //
+
+// BOTES
+app.post('/botes', async (req, res) => {
   try {
     const bote = new Bote(req.body);
     await bote.save();
@@ -42,8 +41,7 @@ app.post('/api/botes', async (req, res) => {
   }
 });
 
-// Leer: Botes
-app.get('/api/botes', async (req, res) => {
+app.get('/botes', async (req, res) => {
   try {
     const botes = await Bote.find();
     res.json(botes);
@@ -52,8 +50,9 @@ app.get('/api/botes', async (req, res) => {
   }
 });
 
-// Crear: Material
-app.post('/api/materiales', async (req, res) => {
+
+// MATERIALES
+app.post('/materiales', async (req, res) => {
   try {
     const material = new Material(req.body);
     await material.save();
@@ -63,8 +62,7 @@ app.post('/api/materiales', async (req, res) => {
   }
 });
 
-// Leer: Materiales
-app.get('/api/materiales', async (req, res) => {
+app.get('/materiales', async (req, res) => {
   try {
     const materiales = await Material.find();
     res.json(materiales);
@@ -73,8 +71,9 @@ app.get('/api/materiales', async (req, res) => {
   }
 });
 
-// Crear: Participante
-app.post('/api/participantes', async (req, res) => {
+
+// PARTICIPANTES
+app.post('/participantes', async (req, res) => {
   try {
     const participante = new Participante(req.body);
     await participante.save();
@@ -84,8 +83,7 @@ app.post('/api/participantes', async (req, res) => {
   }
 });
 
-// Leer: Participantes
-app.get('/api/participantes', async (req, res) => {
+app.get('/participantes', async (req, res) => {
   try {
     const participantes = await Participante.find();
     res.json(participantes);
@@ -94,8 +92,9 @@ app.get('/api/participantes', async (req, res) => {
   }
 });
 
-// Crear: Ruta
-app.post('/api/rutas', async (req, res) => {
+
+// RUTAS DE RECOLECCIÓN
+app.post('/rutas', async (req, res) => {
   try {
     const ruta = new Ruta(req.body);
     await ruta.save();
@@ -105,8 +104,7 @@ app.post('/api/rutas', async (req, res) => {
   }
 });
 
-// Leer: Rutas
-app.get('/api/rutas', async (req, res) => {
+app.get('/rutas', async (req, res) => {
   try {
     const rutas = await Ruta.find();
     res.json(rutas);
@@ -115,9 +113,8 @@ app.get('/api/rutas', async (req, res) => {
   }
 });
 
-// ==========================
-//     Servidor iniciado
-// ==========================
+
+// Servidor en marcha
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
